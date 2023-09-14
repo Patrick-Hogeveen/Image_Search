@@ -1,0 +1,68 @@
+<html>
+<head>
+    <title>Home Page </title>
+    <link rel = "stylesheet" type = "text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'search')">Search</button>
+        <button class="tablinks" onclick="openTab(event, 'upload')">Upload</button>
+    </div>
+    <div id="search" class="tabcontent" >
+        <div class = "uploadColumn">
+            <form action = "{{ url_for('process_image') }}" method="post" enctype="multipart/form-data">
+                <input type="file" id="myFile" name="filepath">
+                <input type="submit">
+                {% if dog_image %}
+                <br/>
+                <img class="uploadedImg" 
+                    src='data:image/jpeg;base64, {{dog_image}}'
+                />
+                {% endif %}
+            </form>
+        </div>
+
+        <h2>RESULTS</h2>
+        <div class = "showColumn">
+            {% for x in content %}
+            <div class="imgCard">
+                <img src = {{ "data:image/jpeg;base64," + x["image"] }} > </img>
+                <h4> {{ x["description"] }} </h4>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="upload" class="tabcontent" >
+        <div class = "uploadColumn">
+            <form action = "{{ url_for('process_image') }}" method="post" enctype="multipart/form-data">
+                <input type="file" id="myFile" name="filepath">
+                <input type="submit">
+                {% if dog_image %}
+                <br/>
+                <img class="uploadedImg" 
+                    src='data:image/jpeg;base64, {{dog_image}}'
+                />
+                {% endif %}
+            </form>
+        </div>
+
+    </div>
+
+<script>
+function openTab(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+</body>
+</html>
