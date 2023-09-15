@@ -21,10 +21,10 @@ def setup_batch(client):
     )
 
 def upload_img(client, name, img):
-    img.save('static/img/'+name,'JPEG')
+    
     b64str = convert_to_base64(img)
 
-
+    vector = vectorize_img_raw(img)
 
     data_properties = {
         "description": name,
@@ -33,6 +33,9 @@ def upload_img(client, name, img):
     }
 
     #TODO - Save image to weaviate
+    uuid = client.data_object.create(data_properties,'Image', vector=vector)
+    img.save('static/img/'+uuid+'.jpg','JPEG')
+    print(uuid)
 
 
 def import_data(client, path):

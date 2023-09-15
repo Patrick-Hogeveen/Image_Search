@@ -38,6 +38,7 @@ if client.is_ready():
     # process the image upload request by converting it to base64 and querying Weaviate
     def process_image():
         uploaded_file = Image.open(request.files['filepath'].stream)
+        uploaded_file = uploaded_file.convert("RGB")
         buffer = BytesIO()
         uploaded_file.save(buffer, format="JPEG")
         img_str = base64.b64encode(buffer.getvalue()).decode()
@@ -51,11 +52,16 @@ if client.is_ready():
                 "image":result["image"]
             })
         print(f"\n {results} \n")
-        return render_template("index.html", content = results, dog_image = img_str)
+        return render_template("index.html", content = results, search_image = img_str)
     
     @app.route("/upload_image", methods=["POST"])
     #upload and store image in vector db
     def upload_image():
+        name = request.files['filepath'].name
         uploaded_file = Image.open(request.files['filepath'].stream)
+        uploaded_file = uploaded_file.convert("RGB")
+        upload_img(client=client,name=name,img=uploaded_file)
+
+        return render_template("index.html", content=[])
         
     

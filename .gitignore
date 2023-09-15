@@ -1,6 +1,9 @@
 #Custom
 archive/
 img_vecs/
+static/img/*
+!static/img/9bf06b7a-c9d1-4766-a488-d3103018292f.jpg
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
