@@ -21,15 +21,18 @@ def setup_batch(client):
     )
 
 def upload_img(client, name, img):
+    img.save('static/img/'+name,'JPEG')
     b64str = convert_to_base64(img)
 
-    
+
 
     data_properties = {
         "description": name,
         "image": b64str,
-        
+        "filepath": 'static/img/'+name
     }
+
+    #TODO - Save image to weaviate
 
 
 def import_data(client, path):

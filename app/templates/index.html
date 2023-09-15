@@ -13,10 +13,10 @@
             <form action = "{{ url_for('process_image') }}" method="post" enctype="multipart/form-data">
                 <input type="file" id="myFile" name="filepath">
                 <input type="submit">
-                {% if dog_image %}
+                {% if search_image %}
                 <br/>
                 <img class="uploadedImg" 
-                    src='data:image/jpeg;base64, {{dog_image}}'
+                    src='data:image/jpeg;base64, {{search_image}}'
                 />
                 {% endif %}
             </form>
@@ -36,12 +36,12 @@
     <div id="upload" class="tabcontent" >
         <div class = "uploadColumn">
             <form action = "{{ url_for('process_image') }}" method="post" enctype="multipart/form-data">
-                <input type="file" id="myFile" name="filepath">
+                <input type="file" id="upFile" name="filepath">
                 <input type="submit">
-                {% if dog_image %}
+                {% if up_image %}
                 <br/>
                 <img class="uploadedImg" 
-                    src='data:image/jpeg;base64, {{dog_image}}'
+                    src='data:image/jpeg;base64, {{up_image}}'
                 />
                 {% endif %}
             </form>

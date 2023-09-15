@@ -7,7 +7,8 @@ app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "/temp_images"
 
 client = init_client()
-
+#May be useful in future but unused for now
+'''
 def list_images():
     """
     Checks the static/img folder and returns a list of image paths
@@ -27,11 +28,11 @@ def list_images():
 
     return images
 
-
+'''
 if client.is_ready():
     @app.route("/")
     def home(): # home page
-        return render_template("index.html", content = list_images())
+        return render_template("index.html", content = [])
 
     @app.route("/process_image", methods = ["POST"]) # save the uploaded image and convert it to base64
     # process the image upload request by converting it to base64 and querying Weaviate
@@ -57,3 +58,4 @@ if client.is_ready():
     def upload_image():
         uploaded_file = Image.open(request.files['filepath'].stream)
         
+    
